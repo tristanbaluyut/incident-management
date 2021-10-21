@@ -4,13 +4,13 @@
             <h3>Login</h3>
             <div class="form">
                 <div class="row">
-                    <input type="text" class="form-control" placeholder="Username" value="" />
+                    <input type="text" class="form-control" placeholder="Username" [(ngModel)]="email"/>
                 </div>
                 <div class="row">
-                    <input type="password" class="form-control" placeholder="Password" value="" />
+                    <input type="password" class="form-control" placeholder="Password"  [(ngModel)]="password"/>
                 </div>
                 <div class="row">
-                    <input type="submit" class="btn btn-primary"/>
+                    <input type="submit" class="btn btn-primary" (click)="onClick()"/>
                 </div>
                 <div class="row text-center">
                     <a routerLink="/forgot-password" class="ForgetPwd">Forget Password?</a>
