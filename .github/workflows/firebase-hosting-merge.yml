@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: npm install -g @angular/cli > /dev/null
+      - run: npm install -g @angular/cli
+      - run: npm install -g @angular-devkit/build-angular
+      - run: npm install -g @angular/compiler-cli
       - run: npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
