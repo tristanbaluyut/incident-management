@@ -13,6 +13,8 @@ import { RaiseIncidentComponent } from './pages/raise-incident/raise-incident.co
 import { IncidentsComponent } from './pages/incidents/incidents.component';
 import { IncidentDetailsComponent } from './pages/incident-details/incident-details.component';
 import { IncidentsListComponent } from './components/incidents-list/incidents-list.component';
+import { LoginService } from './services/login.service';
+import { AuthGuardService } from './services/auth-guard.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import { IncidentsListComponent } from './components/incidents-list/incidents-li
     AuthModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [LoginService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
