@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Incident } from 'src/app/interfaces/incident';
 
 @Component({
   selector: 'app-incidents-list',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IncidentsListComponent implements OnInit {
 
-  constructor() { }
+  @Input() incidents?: Incident[];
 
-  ngOnInit(): void {
+  constructor(private router: Router) { }
+
+  ngOnInit(): void { }
+
+  view(incidentNo: number): void {
+    this.router.navigate(["/incident"], {})
   }
-
 }
