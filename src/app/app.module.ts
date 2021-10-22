@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { AuthModule } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,6 +29,7 @@ import { IncidentsListComponent } from './components/incidents-list/incidents-li
   imports: [
     BrowserModule,
     FormsModule,
+    AuthModule,
     AppRoutingModule
   ],
   providers: [],

@@ -10,7 +10,10 @@
                     <input type="password" class="form-control" placeholder="Password"  [(ngModel)]="password"/>
                 </div>
                 <div class="row">
-                    <input type="submit" class="btn btn-primary" (click)="onClick()"/>
+                    <button class="btn btn-primary" (click)="onClick()">Sign In</button>
+                </div>
+                <div class="row">
+                    <button class="btn btn-primary" (click)="onGoogleClick()">Sign In with Google</button>
                 </div>
                 <div class="row text-center">
                     <a routerLink="/forgot-password" class="ForgetPwd">Forget Password?</a>
