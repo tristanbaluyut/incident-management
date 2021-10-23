@@ -14,7 +14,9 @@ import { IncidentsComponent } from './pages/incidents/incidents.component';
 import { IncidentDetailsComponent } from './pages/incident-details/incident-details.component';
 import { IncidentsListComponent } from './components/incidents-list/incidents-list.component';
 import { LoginService } from './services/login.service';
-import { AuthGuardService } from './services/auth-guard.service';
+import { DatabaseService } from './services/database.service';
+import { IncidentRemarksComponent } from './components/incident-remarks/incident-remarks.component';
+import { StatusComponent } from './components/status/status.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AuthGuardService } from './services/auth-guard.service';
     RaiseIncidentComponent,
     IncidentsComponent,
     IncidentDetailsComponent,
-    IncidentsListComponent
+    IncidentsListComponent,
+    IncidentRemarksComponent,
+    StatusComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +38,7 @@ import { AuthGuardService } from './services/auth-guard.service';
     AuthModule,
     AppRoutingModule
   ],
-  providers: [LoginService, AuthGuardService],
+  providers: [LoginService, DatabaseService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

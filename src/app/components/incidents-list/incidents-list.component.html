@@ -1,60 +1,19 @@
 <table class="table table-hover">
-    <thead>
-      <tr class="table-dark">
-        <th scope="col">Incident No.</th>
-        <th scope="col">Incident Name</th>
-        <th scope="col">Date Reported</th>
-        <th scope="col">Created By</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>  
-  <table class="table">
-    <thead class="thead-light">
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-      </tr>
-      <tr>
-        <th scope="row">2</th>
-        <td>Jacob</td>
-        <td>Thornton</td>
-        <td>@fat</td>
-      </tr>
-      <tr>
-        <th scope="row">3</th>
-        <td>Larry</td>
-        <td>the Bird</td>
-        <td>@twitter</td>
-      </tr>
-    </tbody>
-  </table>
+  <thead>
+    <tr class="table-dark">
+      <th scope="col">Subject</th>
+      <th scope="col">Category</th>
+      <th scope="col">Created Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let incident of incidents">
+      <th scope="row"><a [routerLink]="['/incident-details', incident.key]">{{(incident.subject.length>30)?
+          (incident.subject | slice:0:30)+'...':(incident.subject) }} </a>
+        <app-status [status]='incident.status'></app-status>
+      </th>
+      <td>{{incident.category}}</td>
+      <td>{{incident.no | date:'short'}}</td>
+    </tr>
+  </tbody>
+</table>

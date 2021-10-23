@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Auth, getAuth, getIdToken, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, User } from 'firebase/auth';
+import { Auth, getAuth, getIdToken, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, User } from 'firebase/auth';
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -11,6 +11,10 @@ export class LoginService {
   private auth: Auth = getAuth();
 
   constructor() { }
+
+  getCurrentUserId(): string | undefined {    
+      return this.auth.currentUser?.uid;
+  }
 
   isUserLogin(): Promise<boolean> {
     return new Promise((resolve, reject) => {
@@ -65,5 +69,9 @@ export class LoginService {
       }).catch((error) => {
         console.log(error);
       });
+  }
+
+  signOutUser(): void {
+    signOut(this.auth);
   }
 }

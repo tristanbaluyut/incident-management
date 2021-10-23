@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { IncidentRow } from 'src/app/interfaces';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-incidents',
@@ -7,9 +9,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class IncidentsComponent implements OnInit {
 
-  constructor() { }
+  incidents: IncidentRow[] = []
+
+  constructor(private databaseService: DatabaseService) { }
 
   ngOnInit(): void {
+    this.databaseService.getIncidents()
+      .then((data) => {
+        this.incidents = data;
+        console.log(data);
+      });
   }
-
 }

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Incident } from 'src/app/interfaces/incident';
+import { IncidentRow } from 'src/app/interfaces';
 
 @Component({
   selector: 'app-incidents-list',
@@ -9,13 +9,13 @@ import { Incident } from 'src/app/interfaces/incident';
 })
 export class IncidentsListComponent implements OnInit {
 
-  @Input() incidents?: Incident[];
+  @Input() incidents?: IncidentRow[];
 
   constructor(private router: Router) { }
 
   ngOnInit(): void { }
 
-  view(incidentNo: number): void {
+  view(no: number): void {
     this.router.navigate(["/incident"], {})
   }
 }

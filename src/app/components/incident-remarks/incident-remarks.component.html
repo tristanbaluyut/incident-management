@@ -1,0 +1,20 @@
+<div class="accordion" *ngIf="remarksList !== undefined">
+    <div class="accordion-item" *ngFor="let remarks of remarksList">
+        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+            <button class="accordion-button bg-secondary bg-gradient text-light" type="button" data-bs-toggle="collapse"
+                [attr.data-bs-target]="'#' + remarks.key" aria-expanded="true">
+                {{remarks.date | date:'short'}} - {{remarks.user }}
+
+                <span class="badge rounded-pill m-1"
+                    [ngClass]="{'bg-success':remarks.status === 'Resolved','bg-primary':remarks.status === 'InProgress','bg-danger':remarks.status === 'Closed'}">
+                    {{remarks.status}}
+                </span>
+            </button>
+        </h2>
+        <div id="{{remarks.key}}" class="accordion-collapse collapse show">
+            <div class="accordion-body">
+                {{remarks.remarks}}
+            </div>
+        </div>
+    </div>
+</div>
