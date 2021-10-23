@@ -1,7 +1,7 @@
-<div class="container login-container pt-3">
+<div class="container register-container pt-3">
     <div class="row justify-content-center">
-        <div class="col-md-4 login-form">
-            <h3>Login</h3>
+        <div class="col-md-4 register-form">
+            <h3>Register</h3>
             <div class="form">
                 <div class="row">
                     <input type="text" class="form-control" placeholder="Email" [(ngModel)]="email"/>
@@ -10,14 +10,13 @@
                     <input type="password" class="form-control" placeholder="Password"  [(ngModel)]="password"/>
                 </div>
                 <div class="row">
-                    <button class="btn btn-primary" (click)="onClick()">Sign In</button>
+                    <input type="password" class="form-control" placeholder="Confirm Password"  [(ngModel)]="confirmPassword"/>
                 </div>
                 <div class="row">
-                    <button class="btn btn-primary" (click)="onGoogleClick()">Sign In with Google</button>
+                    <button class="btn btn-primary" (click)="submit()">Submit</button>
                 </div>
                 <div class="row text-center">
-                    <a routerLink="/register" class="links">Register</a>
-                    <a routerLink="/forgot-password" class="links">Forget Password?</a>
+                    <a routerLink="/login" class="links">Back to Login</a>
                 </div>
             </div>
         </div>

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 
 @Component({
@@ -8,12 +9,16 @@ import { LoginService } from 'src/app/services/login.service';
 })
 export class SidebarComponent implements OnInit {
   
-  constructor(private loginService: LoginService) { }
+  constructor(private loginService: LoginService,
+    private router: Router) {}
 
   ngOnInit(): void {
   }
 
   onSignOut(): void {
-    this.loginService.signOutUser();
+    this.loginService.signOutUser()
+    .then(() => {
+      this.router.navigate(['/login']);
+    });
   }
 }

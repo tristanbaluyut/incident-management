@@ -19,10 +19,12 @@ export class AppComponent {
   loginCallback(user?: User): any {
     if (user === undefined) {
       this.isLogin = false;
-      this.router.navigate(['/login'])
+      if (this.router.url !== '/register' && this.router.url !== '') {
+        this.router.navigate(['/login'])
+      }
     } else {
       this.isLogin = true;
-      if (this.router.url === '/login') {
+      if (this.router.url === '/login' || this.router.url === '/register') {
         this.router.navigate(['/dashboard'])
       }
     }

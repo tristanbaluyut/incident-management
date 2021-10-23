@@ -40,3 +40,12 @@ export interface RemarksRow {
   user: string;
   date: number;
 }
+
+export interface Profile {
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  contactNo: string;
+}
+
+

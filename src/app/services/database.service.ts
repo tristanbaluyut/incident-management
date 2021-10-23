@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { getDatabase, set, ref, Database, push, onValue, child, equalTo, orderByChild, query, update, } from 'firebase/database'
-import { IncidentDetails, IncidentRow, RaiseIncident, RemarksRow, SubmitRemarks } from '../interfaces';
+import { IncidentDetails, IncidentRow, Profile, RaiseIncident, RemarksRow, SubmitRemarks } from '../interfaces';
 
 
 
@@ -62,8 +62,8 @@ export class DatabaseService {
         let data = snapshot.val()
         const remarks: RemarksRow[] = [];
 
-        if(data.remarks !== null) {
-          for(key in data.remarks) {
+        if (data.remarks !== null) {
+          for (key in data.remarks) {
             const item = data.remarks[key];
             remarks.push({
               key: key,
@@ -129,5 +129,38 @@ export class DatabaseService {
     const updates: { [index: string]: any } = {};
     updates['incidents/' + key + '/status'] = status;
     return update(ref(this.db), updates);
+  }
+
+  saveUserProfile(uid: string, profile: Profile): Promise<void> {
+    const postListRef = ref(this.db, 'profile/' + uid);
+    return set(postListRef, profile);
+  }
+
+  getUserProfile(uid: string): Promise<Profile> {
+    return new Promise((resolve, reject) => {
+      const incidentQuery = query(ref(this.db, 'profile/' + uid));
+
+      onValue(incidentQuery, (snapshot) => {
+
+        let data = snapshot.val()
+        if (data) {
+          resolve({
+            firstName: data.firstName,
+            middleName: data.middleName,
+            lastName: data.lastName,
+            contactNo: data.contactNo
+          });
+        } else {
+          resolve({
+            contactNo: '',
+            firstName: '',
+            lastName: '',
+            middleName: ''
+          })
+        }
+      }, {
+        onlyOnce: true
+      })
+    });
   }
 }

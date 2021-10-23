@@ -17,6 +17,8 @@ import { LoginService } from './services/login.service';
 import { DatabaseService } from './services/database.service';
 import { IncidentRemarksComponent } from './components/incident-remarks/incident-remarks.component';
 import { StatusComponent } from './components/status/status.component';
+import { RegisterComponent } from './pages/register/register.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { StatusComponent } from './components/status/status.component';
     IncidentDetailsComponent,
     IncidentsListComponent,
     IncidentRemarksComponent,
-    StatusComponent
+    StatusComponent,
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
