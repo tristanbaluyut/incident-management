@@ -4,10 +4,10 @@
             <h3>Login</h3>
             <div class="form">
                 <div class="row">
-                    <input type="text" class="form-control" placeholder="Email" [(ngModel)]="email"/>
+                    <input type="text" class="form-control" placeholder="Email" [(ngModel)]="email" />
                 </div>
                 <div class="row">
-                    <input type="password" class="form-control" placeholder="Password"  [(ngModel)]="password"/>
+                    <input type="password" class="form-control" placeholder="Password" [(ngModel)]="password" />
                 </div>
                 <div class="row">
                     <button class="btn btn-primary" (click)="onClick()">Sign In</button>
@@ -16,8 +16,10 @@
                     <button class="btn btn-primary" (click)="onGoogleClick()">Sign In with Google</button>
                 </div>
                 <div class="row text-center">
-                    <a routerLink="/register" class="links">Register</a>
-                    <a routerLink="/forgot-password" class="links">Forget Password?</a>
+                    <span class="d-inline">
+                        <a routerLink="/register" class="links">Register</a> |
+                        <a routerLink="/forgot-password" class="links d-inline">Forget Password?</a>
+                    </span>
                 </div>
             </div>
         </div>

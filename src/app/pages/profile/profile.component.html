@@ -1,26 +1,29 @@
-<div class="container account-profile-container pt-3"  *ngIf="profile !== undefined">
+<div class="container account-profile-container pt-3" *ngIf="profile !== undefined">
     <h3>Account Profile</h3>
     <div class="mb-3">
-        <label for="firstName" class="form-label">First Name</label>
+        <label for="firstName" class="form-label">*First Name</label>
         <input type="text" class="form-control" id="firstName" placeholder="First Name" [(ngModel)]="profile.firstName">
     </div>
     <div class="mb-3">
-        <label for="middleName" class="form-label">Middle Name</label>
-        <input type="text" class="form-control" id="middleName" placeholder="Middle Name" [(ngModel)]="profile.middleName">
+        <label for="middleName" class="form-label">*Middle Name</label>
+        <input type="text" class="form-control" id="middleName" placeholder="Middle Name"
+            [(ngModel)]="profile.middleName">
     </div>
     <div class="mb-3">
-        <label for="lastName" class="form-label">Last Name</label>
+        <label for="lastName" class="form-label">*Last Name</label>
         <input type="text" class="form-control" id="lastName" placeholder="Last Name" [(ngModel)]="profile.lastName">
     </div>
     <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
+        <label for="email" class="form-label">*Email</label>
         <input type="email" class="form-control" id="email" placeholder="Email" [(ngModel)]="email" readonly>
     </div>
     <div class="mb-3">
-        <label for="contactNo" class="form-label">Contact No.</label>
-        <input class="form-control" id="contactNo" placeholder="Contact No." [(ngModel)]="profile.contactNo"/>
+        <label for="contactNo" class="form-label">*Contact No.</label>
+        <input class="form-control" id="contactNo" placeholder="Contact No." [(ngModel)]="profile.contactNo" />
     </div>
     <div class="mb-3">
-        <button class="btn btn-primary" (click)="save()">Save Changes</button>
+        <button class="btn btn-primary"
+            [disabled]="profile.firstName.length === 0 || profile.middleName.length === 0 || profile.lastName.length === 0 || profile.contactNo.length === 0"
+            (click)="save()">Save Changes</button>
     </div>
 </div>

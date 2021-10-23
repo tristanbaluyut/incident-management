@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
 
     return this.loginService.isUserLogin()
       .then((result: boolean) => {
-        if (state.url === '/login' || state.url === '/register') {
+        if (state.url === '/login' || state.url === '/register' || state.url === '/forgot-password') {
           if (result) {
 
             let uid = this.loginService.getCurrentUserId();

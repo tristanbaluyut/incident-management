@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RaiseIncident } from 'src/app/interfaces';
+import { AlertService } from 'src/app/services/alert.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -22,7 +23,8 @@ export class RaiseIncidentComponent implements OnInit {
 
   constructor(private databaseService: DatabaseService,
     private loginService: LoginService,
-    private router: Router) { }
+    private router: Router,
+    private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.databaseService.getIncidents();
@@ -33,6 +35,7 @@ export class RaiseIncidentComponent implements OnInit {
     this.incident.createdBy = this.loginService.getCurrentUserId() || '';
     this.databaseService.submitIncident(this.incident)
       .then(() => {
+        this.alertService.setAlert('Incident is submitted', 'alert-success', true);
         this.router.navigate(['/incidents']);
       }).catch((error) => {
         console.log(error)

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { equalTo } from '@firebase/database';
 import { Profile } from 'src/app/interfaces';
+import { AlertService } from 'src/app/services/alert.service';
 import { DatabaseService } from 'src/app/services/database.service';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -16,8 +16,13 @@ export class ProfileComponent implements OnInit {
 
   profile?: Profile;
 
+  hasAlert: boolean = false;
+  alertType: string = '';
+  alertMessage: string = '';
+
   constructor(private loginService: LoginService,
-    private databaseService: DatabaseService) { }
+    private databaseService: DatabaseService,
+    private alertService: AlertService) { }
 
   ngOnInit(): void {
     this.email = this.loginService.getCurrentUserEmail() || ''
@@ -27,6 +32,14 @@ export class ProfileComponent implements OnInit {
         .then(data => {
           if (data) {
             this.profile = data;
+
+            if (data.firstName === '' ||
+              data.lastName === '' ||
+              data.middleName === '' ||
+              data.contactNo === '') {
+
+              this.alertService.setAlert('PPlease complete your profile first', 'alert-warning', false);
+            }
           }
         });
     }
@@ -35,7 +48,16 @@ export class ProfileComponent implements OnInit {
   save(): void {
     let uid = this.loginService.getCurrentUserId();
     if (uid && this.profile) {
-      this.databaseService.saveUserProfile(uid, this.profile);
+      this.databaseService.saveUserProfile(uid, this.profile)
+        .then(() => {
+          this.alertService.setAlert('Profile saved successfully', 'alert-success', false);
+        }).catch(() => {
+          this.alertService.setAlert('PFailed to save profile', 'alert-success', false);
+        });
     }
+  }
+
+  dismiss(): void {
+    this.hasAlert = false;
   }
 }

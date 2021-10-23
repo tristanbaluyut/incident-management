@@ -3,12 +3,8 @@
         <h2 class="accordion-header" id="panelsStayOpen-headingOne">
             <button class="accordion-button bg-secondary bg-gradient text-light" type="button" data-bs-toggle="collapse"
                 [attr.data-bs-target]="'#' + remarks.key" aria-expanded="true">
-                {{remarks.date | date:'short'}} - {{remarks.user }}
-
-                <span class="badge rounded-pill m-1"
-                    [ngClass]="{'bg-success':remarks.status === 'Resolved','bg-primary':remarks.status === 'InProgress','bg-danger':remarks.status === 'Closed'}">
-                    {{remarks.status}}
-                </span>
+                {{remarks.date | date:'short'}}-<app-user [uid]="remarks.user"></app-user>
+                <app-status [status]="remarks.status"></app-status>
             </button>
         </h2>
         <div id="{{remarks.key}}" class="accordion-collapse collapse show">

@@ -1,4 +1,4 @@
 <span class="badge rounded-pill m-1"
-    [ngClass]="{'bg-success':status === 'Resolved','bg-primary':status === 'InProgress','bg-danger':status === 'Closed'}">
+    [ngClass]="{'bg-success':status === 'Pending','bg-warning':status === 'Resolved','bg-primary':status === 'InProgress','bg-danger':status === 'Closed'}">
     {{status}}
 </span>

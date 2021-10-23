@@ -3,6 +3,7 @@
   <div class="row">
     <app-sidebar *ngIf="isLogin"></app-sidebar>
     <main class="ms-sm-auto  px-md-4" [ngClass]="{'col-md-12 col-lg-12':!isLogin,'col-md-9 col-lg-10':isLogin}">
+      <app-alert-section></app-alert-section>
       <router-outlet></router-outlet>
     </main>
   </div>

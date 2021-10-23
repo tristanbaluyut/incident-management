@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AuthModule } from '@angular/fire/auth';
+import { ChartsModule } from 'ng2-charts';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +21,12 @@ import { IncidentRemarksComponent } from './components/incident-remarks/incident
 import { StatusComponent } from './components/status/status.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { UserComponent } from './components/user/user.component';
+import { IncidentsBarComponent } from './components/charts/incidents-bar/incidents-bar.component';
+import { IncidentsPieComponent } from './components/charts/incidents-pie/incidents-pie.component';
+import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
+import { AlertSectionComponent } from './sections/alert-section/alert-section.component';
+import { AlertService } from './services/alert.service';
 
 @NgModule({
   declarations: [
@@ -34,15 +42,21 @@ import { ProfileComponent } from './pages/profile/profile.component';
     IncidentRemarksComponent,
     StatusComponent,
     RegisterComponent,
-    ProfileComponent
+    ProfileComponent,
+    UserComponent,
+    IncidentsBarComponent,
+    IncidentsPieComponent,
+    ForgotPasswordComponent,
+    AlertSectionComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     AuthModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ChartsModule 
   ],
-  providers: [LoginService, DatabaseService],
+  providers: [LoginService, DatabaseService, AlertService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

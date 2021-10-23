@@ -9,6 +9,7 @@ import { IncidentDetails, IncidentRow, Profile, RaiseIncident, RemarksRow, Submi
 })
 export class DatabaseService {
   private db: Database;
+  private profiles: { [index: string]: any } = {};
 
   constructor() {
     this.db = getDatabase();
@@ -28,10 +29,26 @@ export class DatabaseService {
       onValue(incidentQuery, (snapshot) => {
         let incidents: IncidentDetails[] = [];
 
-        const remarks: RemarksRow[] = [];
         snapshot.forEach((childSnapshot) => {
           const childKey = childSnapshot.key;
           const childData = childSnapshot.val();
+
+          const remarks: RemarksRow[] = [];
+
+          if (childData.remarks !== null) {
+            let prop: string = '';
+            for (prop in childData.remarks) {
+              const item = childData.remarks[prop];
+              remarks.push({
+                key: prop,
+                user: item.user,
+                date: item.date,
+                remarks: item.remarks,
+                status: item.status
+              })
+            }
+          }
+
           if (childKey !== null) {
             incidents.push({
               key: childKey,
@@ -63,10 +80,11 @@ export class DatabaseService {
         const remarks: RemarksRow[] = [];
 
         if (data.remarks !== null) {
-          for (key in data.remarks) {
-            const item = data.remarks[key];
+          let prop: string = '';
+          for (prop in data.remarks) {
+            const item = data.remarks[prop];
             remarks.push({
-              key: key,
+              key: prop,
               user: item.user,
               date: item.date,
               remarks: item.remarks,
@@ -133,6 +151,7 @@ export class DatabaseService {
 
   saveUserProfile(uid: string, profile: Profile): Promise<void> {
     const postListRef = ref(this.db, 'profile/' + uid);
+    this.profiles[uid] = profile;
     return set(postListRef, profile);
   }
 
@@ -161,6 +180,20 @@ export class DatabaseService {
       }, {
         onlyOnce: true
       })
+    });
+  }
+
+  getUserProfileCache(uid: string): Promise<Profile> {
+    return new Promise((resolve, reject) => {
+      if (this.profiles[uid]) {
+        resolve(this.profiles[uid]);        
+      } else {
+        this.getUserProfile(uid)
+          .then(data => {
+            this.profiles[uid] = data;
+            resolve(data);
+          })
+      }
     });
   }
 }

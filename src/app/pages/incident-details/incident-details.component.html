@@ -1,57 +1,68 @@
-<div class="container incident-details-container pt-3" *ngIf="incident !== undefined">
-    <h3>Incident Details</h3>
-    <div class="mb-3">
-        <label for="no" class="form-label">No.</label>
-        <input type="subject" class="form-control" id="no" placeholder="No." readonly [(ngModel)]="incident.no">
-    </div>
-    <div class="mb-3">
-        <label for="subject" class="form-label">Subject</label>
-        <input type="text" class="form-control" id="subject" placeholder="Subject" readonly
-            [(ngModel)]="incident.subject">
-    </div>
-    <div class="mb-3">
-        <label for="category" class="form-label">Category</label>
-        <input type="text" class="form-control" id="category" placeholder="Category" readonly
-            [(ngModel)]="incident.category">
-    </div>
-    <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" placeholder="Description" readonly rows="3"
-            [(ngModel)]="incident.description"></textarea>
-    </div>
-    <div class="mb-3">
-        <label for="status" class="form-label">Status</label>
-        <input type="text" class="form-control" id="status" placeholder="Status" readonly [(ngModel)]="incident.status">
-    </div>
-    <div class="mb-3">
-        <label for="createdDate" class="form-label">Created Date</label>
-        <input type="text" class="form-control" id="createdDate" placeholder="Created Date" readonly
-            value="{{incident.no | date:'short'}}">
-    </div>
-    <div class="mb-3">
-        <label for="createdBy" class="form-label">Created By</label>
-        <input type="text" class="form-control" id="createdBy" placeholder="Created By" readonly
-            [(ngModel)]="incident.createdBy">
-    </div>
-    <hr />
-    <h3>Incident Remarks</h3>
-
-    <div class="mb-3">
-        <app-incident-remarks [remarksList]="incident.remarks"></app-incident-remarks>
-    </div>
-    <div *ngIf="incident.status !== 'Closed'">
-        <div class="mb-3">
-            <label for="remarks" class="form-label">Submit Remarks</label>
-            <textarea class="form-control" id="remarks" placeholder="Remarks" rows="3" [(ngModel)]="remarks"></textarea>
+<div class="container incident-details-container pt-3" *ngIf="incident">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Incident Details</h3>
+            <div class="mb-3">
+                <label for="no" class="form-label">No.</label>
+                <input type="subject" class="form-control" id="no" placeholder="No." readonly [(ngModel)]="incident.no">
+            </div>
+            <div class="mb-3">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" class="form-control" id="subject" placeholder="Subject" readonly
+                    [(ngModel)]="incident.subject">
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <input type="text" class="form-control" id="category" placeholder="Category" readonly
+                    [(ngModel)]="incident.category">
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" placeholder="Description" readonly rows="3"
+                    [(ngModel)]="incident.description"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <input type="text" class="form-control" id="status" placeholder="Status" readonly
+                    [(ngModel)]="incident.status">
+            </div>
+            <div class="mb-3">
+                <label for="createdDate" class="form-label">Created Date</label>
+                <input type="text" class="form-control" id="createdDate" placeholder="Created Date" readonly
+                    value="{{incident.no | date:'short'}}">
+            </div>
+            <div class="mb-3" *ngIf="createdBy">
+                <label for="createdBy" class="form-label">Created By</label>
+                <input type="text" class="form-control" id="createdBy" placeholder="Created By" readonly
+                    value="{{createdBy.firstName}} {{createdBy.lastName}}">
+            </div>
         </div>
+        <div class="col-md-6">
+            <h3>Remarks</h3>
 
-        <div class="mb-3">
-            <button class="btn btn-primary m-1" (click)="submit('InProgress')"
-                *ngIf="canSubmit('InProgress')">InProgress</button>
-            <button class="btn btn-success m-1" (click)="submit('Resolved')"
-                *ngIf="canSubmit('Resolve')">Resolve</button>
-            <button class="btn btn-primary m-1" (click)="submit('InProgress')"
-                *ngIf="canSubmit('Submit')">Submit</button>
-            <button class="btn btn-danger m-1" (click)="submit('Closed')" *ngIf="canSubmit('Close')">Close</button>
+            <div class="mb-3">
+                <app-incident-remarks [remarksList]="incident.remarks"></app-incident-remarks>
+            </div>
+            <div *ngIf="incident.status !== 'Closed'">
+                <div class="mb-3">
+                    <label for="remarks" class="form-label">Submit Remarks</label>
+                    <textarea required class="form-control" id="remarks" placeholder="Remarks" rows="3" minlength="10"
+                        [(ngModel)]="remarks" #ctrlRemark="ngModel"></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <button class="btn btn-primary m-1" (click)="submit('InProgress')" *ngIf="canSubmit('InProgress')"
+                        [disabled]="ctrlRemark.invalid" [disabled]="remarks.length === 0">InProgress</button>
+                    <button class="btn btn-warning m-1" (click)="submit('Resolved')" *ngIf="canSubmit('Resolve')"
+                        [disabled]="remarks.length === 0">Resolve</button>
+                    <button class="btn btn-success m-1" (click)="submit('InProgress')" *ngIf="canSubmit('Submit')"
+                        [disabled]="remarks.length === 0">Submit</button>
+                    <button class="btn btn-success m-1" (click)="submit('Resolved')" *ngIf="canSubmit('OpSubmit')"
+                        [disabled]="remarks.length === 0">Submit</button>
+                    <button class="btn btn-danger m-1" (click)="submit('Closed')" *ngIf="canSubmit('Close')"
+                        [disabled]="remarks.length === 0">Complete</button>
+                </div>
+            </div>
         </div>
     </div>
+</div>

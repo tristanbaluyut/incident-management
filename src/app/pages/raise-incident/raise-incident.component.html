@@ -1,18 +1,27 @@
 <div class="container raise-incident-container pt-3">
     <h3>New Incident</h3>
     <div class="mb-3">
-        <label for="subject" class="form-label">Subject</label>
+        <label for="subject" class="form-label">*Subject</label>
         <input type="email" class="form-control" id="subject" placeholder="Subject" [(ngModel)]="incident.subject">
     </div>
     <div class="mb-3">
-        <label for="category" class="form-label">Category</label>
-        <input type="category" class="form-control" id="category" placeholder="Category" [(ngModel)]="incident.category">
+        <label for="category" class="form-label">*Category</label>
+        <select class="form-select" id="category" placeholder="Category" aria-label="Category"
+            [(ngModel)]="incident.category">
+            <option value="Delivery">Delivery</option>
+            <option value="Payment">Payment</option>
+            <option value="Product">Product</option>
+            <option value="Service">Service</option>
+        </select>
     </div>
     <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <textarea class="form-control" id="description" placeholder="Description" rows="3" [(ngModel)]="incident.description"></textarea>
+        <label for="description" class="form-label">*Description</label>
+        <textarea class="form-control" id="description" placeholder="Description" rows="3"
+            [(ngModel)]="incident.description"></textarea>
     </div>
     <div class="mb-3">
-        <button class="btn btn-primary" (click)="submit()">Submit</button>
+        <button class="btn btn-primary"
+            [disabled]="incident.subject .length === 0 || incident.category.length === 0 || incident.description.length === 0"
+            (click)="submit()">Submit</button>
     </div>
 </div>

@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, getAuth, getIdToken, GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, User } from 'firebase/auth';
+import {
+  Auth, createUserWithEmailAndPassword, getAuth, getIdToken, GoogleAuthProvider,
+  onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword,
+  signInWithPopup, signOut, User,
+} from 'firebase/auth';
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -48,14 +52,16 @@ export class LoginService {
     });
   }
 
-  signInWithEmailAndPassword(email: string, password: string): void {
-    signInWithEmailAndPassword(this.auth, email, password)
+  signInWithEmailAndPassword(email: string, password: string): Promise<boolean> {
+    return signInWithEmailAndPassword(this.auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log(user);
+        return true;
       })
       .catch((error) => {
         console.log(error)
+        return false;
       });
   }
 
@@ -88,5 +94,9 @@ export class LoginService {
         console.log(error);
         return false;
       });
+  }
+
+  sendPasswordResetEmail(email: string): Promise<void> {
+    return sendPasswordResetEmail(this.auth, email);
   }
 }
