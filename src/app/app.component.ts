@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'firebase/auth';
+import { DatabaseService } from './services/database.service';
 import { LoginService } from './services/login.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class AppComponent {
 
   constructor(
     private loginService: LoginService,
+    private databaseService: DatabaseService,
     private router: Router) { }
 
   loginCallback(user?: User): any {
@@ -25,7 +27,17 @@ export class AppComponent {
     } else {
       this.isLogin = true;
       if (this.router.url === '/login' || this.router.url === '/register') {
-        this.router.navigate(['/dashboard'])
+        let uid = this.loginService.getCurrentUserId();
+
+        this.databaseService.getUserProfileCache(uid || '')
+          .then
+          (data => {
+            if (data.role === 'Admin') {
+              this.router.navigate(['/dashboard']);
+            } else {
+              this.router.navigate(['/incidents']);
+            }
+          });
       }
     }
   }
