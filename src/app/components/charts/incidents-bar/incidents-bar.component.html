@@ -1,4 +1,4 @@
-<div class="m-3">
+<div class="m-3" *ngIf="initComplete">
     <h3 class="text-center">No of Tickets per Category</h3>
     <div class="d-block">
         <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"

@@ -11,12 +11,19 @@ export class NavbarComponent implements OnInit {
 
   @Input() isLogin?: boolean;
 
-  constructor(private router: Router) {}
+  query: string = '';
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  search(value: string): void {
-    this.router.navigate(['/incident-details', value]);
+  search(): void {
+    this.router.navigate(['/incident-details', this.query])
+      .then(result => {
+        if (result) {
+          this.query = '';
+        }
+      });
   }
 }

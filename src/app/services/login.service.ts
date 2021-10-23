@@ -4,6 +4,7 @@ import {
   onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword,
   signInWithPopup, signOut, User,
 } from 'firebase/auth';
+import { DatabaseService } from './database.service';
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -14,7 +15,7 @@ export class LoginService {
 
   private auth: Auth = getAuth();
 
-  constructor() { }
+  constructor(private databaseService: DatabaseService) { }
 
   getCurrentUserId(): string | undefined {
     return this.auth.currentUser?.uid;
@@ -98,5 +99,20 @@ export class LoginService {
 
   sendPasswordResetEmail(email: string): Promise<void> {
     return sendPasswordResetEmail(this.auth, email);
+  }
+
+  canAccess(link: string): boolean {
+    let uid = this.getCurrentUserId();
+    let role = this.databaseService.getRoleCache(uid || '');
+
+    switch (link) {
+      case 'dashboard':
+      case 'users':
+        return role === 'Admin';
+      case 'raise-incident':
+        return role !== 'Admin';
+      default:
+        return true;
+    }
   }
 }

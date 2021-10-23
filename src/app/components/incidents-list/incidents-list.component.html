@@ -7,7 +7,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let incident of incidents">
+    <tr *ngFor="let incident of getIncidents()">
       <th scope="row"><a [routerLink]="['/incident-details', incident.key]">{{(incident.subject.length>30)?
           (incident.subject | slice:0:30)+'...':(incident.subject) }} </a>
         <app-status [status]='incident.status'></app-status>

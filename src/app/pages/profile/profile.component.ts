@@ -38,7 +38,7 @@ export class ProfileComponent implements OnInit {
               data.middleName === '' ||
               data.contactNo === '') {
 
-              this.alertService.setAlert('PPlease complete your profile first', 'alert-warning', false);
+              this.alertService.setAlert('Please complete your profile first', 'alert-warning', false);
             }
           }
         });
@@ -48,6 +48,9 @@ export class ProfileComponent implements OnInit {
   save(): void {
     let uid = this.loginService.getCurrentUserId();
     if (uid && this.profile) {
+      this.profile.email = this.email;
+      this.profile.role = 'Customer';
+
       this.databaseService.saveUserProfile(uid, this.profile)
         .then(() => {
           this.alertService.setAlert('Profile saved successfully', 'alert-success', false);

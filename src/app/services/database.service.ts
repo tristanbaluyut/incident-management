@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { getDatabase, set, ref, Database, push, onValue, child, equalTo, orderByChild, query, update, } from 'firebase/database'
-import { IncidentDetails, IncidentRow, Profile, RaiseIncident, RemarksRow, SubmitRemarks } from '../interfaces';
+import { getDatabase, set, ref, Database, push, onValue, equalTo, orderByChild, query, update, } from 'firebase/database'
+import { IncidentDetails, IncidentRow, Profile, RaiseIncident, RemarksRow, SubmitRemarks, UserRole } from '../interfaces';
 
 
 
@@ -124,7 +124,8 @@ export class DatabaseService {
               no: childData.no,
               subject: childData.subject,
               category: childData.category,
-              status: childData.status
+              status: childData.status,
+              createdBy: childData.createdBy
             });
           }
         });
@@ -167,14 +168,18 @@ export class DatabaseService {
             firstName: data.firstName,
             middleName: data.middleName,
             lastName: data.lastName,
-            contactNo: data.contactNo
+            contactNo: data.contactNo,
+            role: data.role,
+            email: data.email
           });
         } else {
           resolve({
             contactNo: '',
             firstName: '',
             lastName: '',
-            middleName: ''
+            middleName: '',
+            role: '',
+            email: ''
           })
         }
       }, {
@@ -186,7 +191,7 @@ export class DatabaseService {
   getUserProfileCache(uid: string): Promise<Profile> {
     return new Promise((resolve, reject) => {
       if (this.profiles[uid]) {
-        resolve(this.profiles[uid]);        
+        resolve(this.profiles[uid]);
       } else {
         this.getUserProfile(uid)
           .then(data => {
@@ -195,5 +200,50 @@ export class DatabaseService {
           })
       }
     });
+  }
+
+  getUserRoles(): Promise<UserRole[]> {
+    return new Promise((resolve, reject) => {
+      const dbRef = ref(this.db, 'profile');
+      onValue(dbRef, (snapshot) => {
+        let profiles: UserRole[] = [];
+
+        snapshot.forEach((childSnapshot) => {
+          const childKey = childSnapshot.key;
+          const childData = childSnapshot.val();
+          if (childKey !== null) {
+
+            this.profiles[childKey] = {
+              firstName: childData.firstName,
+              middleName: childData.middleName,
+              lastName: childData.lastName,
+              contactNo: childData.contactNo,
+              role: childData.role,
+              email: childData.email
+            };
+
+            profiles.push({
+              uid: childKey,
+              email: childData.email,
+              role: childData.role
+            });
+          }
+        });
+        resolve(profiles);
+      }, {
+        onlyOnce: true
+      })
+    });
+  }
+
+  setRole(uid: string, role: string): Promise<void> {    
+    this.profiles[uid].role = role;    
+    const updates: { [index: string]: any } = {};
+    updates['profile/' + uid + '/role'] = role;    
+    return update(ref(this.db), updates);
+  }
+  
+  getRoleCache(uid: string): string {
+    return this.profiles[uid].role;
   }
 }

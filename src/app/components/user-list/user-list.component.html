@@ -1,0 +1,27 @@
+<table class="table table-hover" *ngIf="users">
+    <thead>
+        <tr class="table-dark">
+            <th scope="col">Display Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">IsAdmin</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users; let i = index" [attr.data-index]="i">
+            <th scope="row">
+                <app-user [uid]="user.uid"></app-user>
+            </th>
+            <td>{{user.email}}</td>
+            <td>{{user.role === 'Admin' ? 'Yes' : 'No'}}</td>
+            <td>
+                <span *ngIf="user.uid !== currentUid">
+                    <a class="link-primary" *ngIf="user.role !== 'Admin'" href="javascript:void(0)" (click)="add(i)">Add
+                        Admin Role</a>
+                    <a class="link-danger" *ngIf="user.role === 'Admin'" href="javascript:void(0)"
+                        (click)="remove(i)">Remove Admin Role</a>
+                </span>
+            </td>
+        </tr>
+    </tbody>
+</table>

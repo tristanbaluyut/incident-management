@@ -4,6 +4,7 @@ export interface IncidentRow {
   category: string;
   subject: string;
   status: string;
+  createdBy: string;
 }
 
 export interface RaiseIncident {
@@ -46,6 +47,14 @@ export interface Profile {
   middleName: string;
   lastName: string;
   contactNo: string;
+  role: string;
+  email: string;
+}
+
+export interface UserRole {
+  uid: string;
+  role: string;
+  email: string;
 }
 
 

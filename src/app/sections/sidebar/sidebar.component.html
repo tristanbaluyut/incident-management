@@ -1,7 +1,7 @@
 <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
   <div class="position-sticky pt-3">
     <ul class="nav flex-column">
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="canAccess('dashboard')">
         <a class="nav-link" routerLink="/dashboard">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-layers"
             viewBox="0 0 16 16">
@@ -25,7 +25,7 @@
           Incidents
         </a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="canAccess('raise-incident')">
         <a class="nav-link" routerLink="/raise-incident">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
             class="bi bi-file-earmark-text" viewBox="0 0 16 16">
@@ -37,8 +37,9 @@
           Raise an Incidents
         </a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">
+
+      <li class="nav-item" *ngIf="canAccess('users')">
+        <a class="nav-link" routerLink="/users">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
             class="feather feather-bar-chart-2" aria-hidden="true">
@@ -46,7 +47,7 @@
             <line x1="12" y1="20" x2="12" y2="4"></line>
             <line x1="6" y1="20" x2="6" y2="14"></line>
           </svg>
-          Reports
+          Manage Users
         </a>
       </li>
 

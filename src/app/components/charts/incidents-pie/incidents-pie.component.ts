@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ChartType, ChartOptions } from 'chart.js';
 import { Label } from 'ng2-charts';
+import { IncidentRow } from 'src/app/interfaces';
+import { DatabaseService } from 'src/app/services/database.service';
 
 @Component({
   selector: 'app-incidents-pie',
@@ -9,9 +11,34 @@ import { Label } from 'ng2-charts';
 })
 export class IncidentsPieComponent implements OnInit {
 
-  constructor() { }
+  initComplete: boolean = false;
+  constructor(private databaseService: DatabaseService) { }
 
   ngOnInit(): void {
+
+    this.databaseService.getIncidents()
+      .then(data => {
+
+        data.forEach(item => {
+
+          switch (item.status) {
+            case 'Pending':
+              this.pieChartData[0]++;
+              break;
+            case 'InProgress':
+              this.pieChartData[1]++;
+              break;
+            case 'Resolved':
+              this.pieChartData[2]++;
+              break;
+            case 'Closed':
+              this.pieChartData[3]++;
+              break;
+          }
+        })
+
+        this.initComplete = true;
+      });
   }
 
   pieChartOptions: ChartOptions = {
@@ -28,13 +55,13 @@ export class IncidentsPieComponent implements OnInit {
       },
     }
   };
-  pieChartLabels: Label[] = ['Pending' , 'InProgress', 'Resolved', 'Closed'];
-  pieChartData: number[] = [300, 500, 100, 200];
+  pieChartLabels: Label[] = ['Pending', 'InProgress', 'Resolved', 'Closed'];
+  pieChartData: number[] = [0, 0, 0, 0];
   pieChartType: ChartType = 'pie';
   pieChartLegend = true;
   pieChartColors = [
     {
-      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
+      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)', 'rgba(255,255,0,0.3)'],
     },
   ];
 

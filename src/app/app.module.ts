@@ -27,6 +27,8 @@ import { IncidentsPieComponent } from './components/charts/incidents-pie/inciden
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { AlertSectionComponent } from './sections/alert-section/alert-section.component';
 import { AlertService } from './services/alert.service';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { UsersComponent } from './pages/users/users.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,9 @@ import { AlertService } from './services/alert.service';
     IncidentsBarComponent,
     IncidentsPieComponent,
     ForgotPasswordComponent,
-    AlertSectionComponent
+    AlertSectionComponent,
+    UserListComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

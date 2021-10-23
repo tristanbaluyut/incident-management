@@ -21,4 +21,8 @@ export class SidebarComponent implements OnInit {
       this.router.navigate(['/login']);
     });
   }
+
+  canAccess(page: string):boolean {
+    return this.loginService.canAccess(page);
+  }
 }
