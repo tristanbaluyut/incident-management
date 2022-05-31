@@ -33,6 +33,7 @@ export class IncidentsBarComponent implements OnInit {
         let delivery: number[] = []
         let product: number[] = []
         let service: number[] = []
+        let other: number[] = []
 
         this.vector.forEach(x => {
           let label: string = '';
@@ -50,6 +51,7 @@ export class IncidentsBarComponent implements OnInit {
           delivery.push(0);
           product.push(0);
           service.push(0);
+          other.push(0);
         });
 
 
@@ -72,6 +74,9 @@ export class IncidentsBarComponent implements OnInit {
             case 'Service':
               service[idx]++;
               break;
+            case 'Other':
+              other[idx]++;
+              break;
           }
 
         })
@@ -80,6 +85,7 @@ export class IncidentsBarComponent implements OnInit {
         this.barChartData.push({ data: delivery, label: 'Delivery' });
         this.barChartData.push({ data: product, label: 'Product' });
         this.barChartData.push({ data: service, label: 'Service' });
+        this.barChartData.push({ data: other, label: 'Other' });
 
         this.initComplete = true;
       });

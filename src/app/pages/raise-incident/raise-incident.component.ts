@@ -18,7 +18,8 @@ export class RaiseIncidentComponent implements OnInit {
     no: 0,
     createdBy: '',
     status: 'Pending',
-    category: ''
+    category: '',
+    other: ''
   }
 
   constructor(private databaseService: DatabaseService,
@@ -31,6 +32,17 @@ export class RaiseIncidentComponent implements OnInit {
   }
 
   submit() {
+
+
+    if (this.incident.subject.trim() === '' ||
+      this.incident.category.trim() === '' ||
+      (this.incident.category === 'Other' && this.incident.other.trim() === '') ||
+      this.incident.description.trim() === '') {
+      this.alertService.setAlert('Please complete all required fields', 'alert-warning', false);
+      return;
+    }
+
+
     this.incident.no = Date.now();
     this.incident.createdBy = this.loginService.getCurrentUserId() || '';
     this.databaseService.submitIncident(this.incident)

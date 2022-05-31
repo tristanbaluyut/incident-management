@@ -2,7 +2,7 @@
     <h3>New Incident</h3>
     <div class="mb-3">
         <label for="subject" class="form-label">*Subject</label>
-        <input type="email" class="form-control" id="subject" placeholder="Subject" [(ngModel)]="incident.subject">
+        <input type="text" class="form-control" id="subject" placeholder="Subject" [(ngModel)]="incident.subject">
     </div>
     <div class="mb-3">
         <label for="category" class="form-label">*Category</label>
@@ -12,7 +12,12 @@
             <option value="Payment">Payment</option>
             <option value="Product">Product</option>
             <option value="Service">Service</option>
+            <option value="Other">Other</option>
         </select>
+    </div>
+    <div class="mb-3" *ngIf="incident.category==='Other'">
+        <label for=" other" class="form-label">*Please specify</label>
+        <input type="text" class="form-control" id="other" placeholder="Other" [(ngModel)]="incident.other">
     </div>
     <div class="mb-3">
         <label for="description" class="form-label">*Description</label>
@@ -20,8 +25,6 @@
             [(ngModel)]="incident.description"></textarea>
     </div>
     <div class="mb-3">
-        <button class="btn btn-primary"
-            [disabled]="incident.subject .length === 0 || incident.category.length === 0 || incident.description.length === 0"
-            (click)="submit()">Submit</button>
+        <button class="btn btn-primary" (click)="submit()">Submit</button>
     </div>
 </div>

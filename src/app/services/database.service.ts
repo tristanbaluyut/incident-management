@@ -244,6 +244,6 @@ export class DatabaseService {
   }
   
   getRoleCache(uid: string): string {
-    return this.profiles[uid].role;
+    return this.profiles[uid]?.role;
   }
 }

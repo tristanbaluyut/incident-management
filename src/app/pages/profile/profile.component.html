@@ -19,11 +19,10 @@
     </div>
     <div class="mb-3">
         <label for="contactNo" class="form-label">*Contact No.</label>
-        <input type="tel" class="form-control" id="contactNo" placeholder="Contact No." [(ngModel)]="profile.contactNo" />
+        <input type="tel" class="form-control" id="contactNo" placeholder="Contact No."
+            [(ngModel)]="profile.contactNo" />
     </div>
     <div class="mb-3">
-        <button class="btn btn-primary"
-            [disabled]="profile.firstName.length === 0 || profile.middleName.length === 0 || profile.lastName.length === 0 || profile.contactNo.length === 0"
-            (click)="save()">Save Changes</button>
+        <button class="btn btn-primary" (click)="save()">Save Changes</button>
     </div>
 </div>

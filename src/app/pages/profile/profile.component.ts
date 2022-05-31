@@ -51,11 +51,44 @@ export class ProfileComponent implements OnInit {
       this.profile.email = this.email;
       this.profile.role = 'Customer';
 
+      if (this.profile.firstName.trim() === '' ||
+        this.profile.lastName.trim() === '' ||
+        this.profile.middleName.trim() === '' ||
+        this.profile.contactNo.trim() === '') {
+
+        this.alertService.setAlert('Please complete all required fields', 'alert-warning', false);
+
+        return;
+      }
+
+      var mobileFormat = /^(\+)?[0-9]{10,}$/;
+      var nameFormat = /^[a-z|A-Z| ]+$/;
+
+      if (!mobileFormat.test(this.profile.contactNo)) {
+        this.alertService.setAlert('Invalid mobile number', 'alert-warning', false);
+        return;
+      }
+
+      if (!nameFormat.test(this.profile.firstName.trim())) {
+        this.alertService.setAlert('Invalid first name', 'alert-warning', false);
+        return;
+      }
+
+      if (!nameFormat.test(this.profile.middleName.trim())) {
+        this.alertService.setAlert('Invalid middle name', 'alert-warning', false);
+        return;
+      }
+
+      if (!nameFormat.test(this.profile.lastName.trim())) {
+        this.alertService.setAlert('Invalid last name', 'alert-warning', false);
+        return;
+      }
+
       this.databaseService.saveUserProfile(uid, this.profile)
         .then(() => {
           this.alertService.setAlert('Profile saved successfully', 'alert-success', false);
         }).catch(() => {
-          this.alertService.setAlert('PFailed to save profile', 'alert-success', false);
+          this.alertService.setAlert('Failed to save profile', 'alert-success', false);
         });
     }
   }

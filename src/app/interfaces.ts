@@ -14,6 +14,7 @@ export interface RaiseIncident {
   description: string;
   status: string;
   createdBy: string;
+  other: string;
 }
 
 export interface IncidentDetails {
