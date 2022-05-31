@@ -26,6 +26,7 @@ export interface IncidentDetails {
   status: string;
   createdBy: string;
   remarks: RemarksRow[];
+  other: string;
 }
 
 export interface SubmitRemarks {

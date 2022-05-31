@@ -58,7 +58,8 @@ export class DatabaseService {
               createdBy: childData.createdBy,
               status: childData.status,
               category: childData.category,
-              remarks: remarks
+              other: childData.other,
+              remarks: remarks,
             });
           }
         });
@@ -101,7 +102,8 @@ export class DatabaseService {
           createdBy: data.createdBy,
           status: data.status,
           category: data.category,
-          remarks: remarks
+          remarks: remarks,
+          other: data.other
         });
       }, {
         onlyOnce: true

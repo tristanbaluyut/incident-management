@@ -16,6 +16,11 @@
                 <input type="text" class="form-control" id="category" placeholder="Category" readonly
                     [(ngModel)]="incident.category">
             </div>
+            <div class="mb-3" *ngIf="incident.category === 'Other'">
+                <label for="other" class="form-label">Other Category</label>
+                <input type="text" class="form-control" id="other" placeholder="Other" readonly
+                    [(ngModel)]="incident.other">
+            </div>
             <div class="mb-3">
                 <label for="description" class="form-label">Description</label>
                 <textarea class="form-control" id="description" placeholder="Description" readonly rows="3"
