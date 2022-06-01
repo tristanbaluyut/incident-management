@@ -49,7 +49,10 @@ export class ProfileComponent implements OnInit {
     let uid = this.loginService.getCurrentUserId();
     if (uid && this.profile) {
       this.profile.email = this.email;
-      this.profile.role = 'Customer';
+
+      if(this.profile.role.trim() === '') {
+        this.profile.role = 'Customer';
+      }
 
       if (this.profile.firstName.trim() === '' ||
         this.profile.lastName.trim() === '' ||
